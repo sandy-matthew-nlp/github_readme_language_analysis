@@ -11,7 +11,6 @@ import pprint
 import itertools as it
 import pandas as pd
 
-url_list = ['microsoft/Terminal', 'jackfrued/Python-100-Days', 'kkuchta/css-only-chat', 'microsoft/PowerToys', 'jolaleye/cssfx', 'MisterBooo/LeetCodeAnimation', 'flutter/flutter_web', 'TheAlgorithms/Python', 'hiroppy/fusuma', 'CyC2018/CS-Notes', 'jaywcjlove/linux-command', 'flutter/flutter', '996icu/996.ICU', 'STVIR/pysot', 'minamarkham/formation', 'azl397985856/leetcode', 'qianguyihao/Web', 'react-native-windows', 'sql-machine-learning/sqlflow', 'sabakkps/backslide', 'dgryski/go-perfbook', 'Snailclimb/JavaGuide', 'microsoft/vscode', 'markphelps/flipt', 'teoga/awesome-product-design']
 
 def get_repo_list():
     url_p1 = 'https://github.com/search?p='
