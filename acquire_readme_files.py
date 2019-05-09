@@ -68,7 +68,7 @@ def get_all_readme_files_and_languages():
 
 
 # The below code was done to read data files because github blocked the Codeup server 
-# from making too many requests.
+# from making too many requests.  
 
 def temp_get_all_readme_files_and_languages():
     BASE_URL = 'https://github.com'
