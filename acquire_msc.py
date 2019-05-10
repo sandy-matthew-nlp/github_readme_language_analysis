@@ -113,8 +113,8 @@ def get_alt(repo_list, use_cache = False):
                         'content': readme
                          }
             #print(this_entry.keys())
-            print(this_entry['title'])
-            print(this_entry['language'])
+#             print(this_entry['title'])
+#             print(this_entry['language'])
             repositories.append(this_entry)
             #json.dump(repositories, open('repositories.json', 'w'))
     return repositories
