@@ -46,32 +46,7 @@ def remove_stopwords(some_text, extra_words = [], exclude_words = []):
     filtered_words = [w for w in word_list if w not in stopword_list]
     return ' '.join(filtered_words)
 
-def prep_article(d_content, extra_words = [], exclude_words = []):
-    if 'title' and 'content' and 'category' in list(d_content.keys()):
-        cleaned = basic_clean(d_content['content'])
-        tokened = tokenize(cleaned)
-        prepped_content = {
-            'title': d_content['title'],
-            'category': d_content['category'],
-            'original': d_content['content'],
-            'stemmed': stem(tokened),
-            'lemmatized': lemmatize(tokened),
-            'clean': remove_stopwords(tokened, extra_words, exclude_words)
-        }
-        return prepped_content
-    elif 'title' and 'content' in list(d_content.keys()):
-        cleaned = basic_clean(d_content['content'])
-        tokened = tokenize(cleaned)
-        prepped_content = {
-            'title': d_content['title'],
-            'original': d_content['content'],
-            'stemmed': stem(tokened),
-            'lemmatized': lemmatize(tokened),
-            'clean': remove_stopwords(tokened, extra_words, exclude_words)
-        }
-        return prepped_content
-    else:
-        print('~~~Function requires a dictionary with a \'title\' and \'content\' key.~~~')
+def clean(text, extra_words = []):
+    '''accepts some text and passes the decided functions in-line.  optional extra-stopwords parameters as kwarg.'''
+    return remove_stopwords(lemmatize(basic_clean(text)), extra_words)
 
-def prepare_article_data(list_o_dicts, extra_words = [], exclude_words = []):
-    return [prep_article(art, extra_words, exclude_words) for art in list_o_dicts]
