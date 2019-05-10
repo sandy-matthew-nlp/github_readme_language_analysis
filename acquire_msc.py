@@ -81,6 +81,14 @@ def get_all_readme_files_and_languages(use_cache=True):
 # The below code was done to read data files because github blocked the Codeup server 
 # from making too many requests.  
 
+<<<<<<< HEAD
+=======
+def temp_get_all_readme_files_and_languages():
+    
+    BASE_URL = 'https://github.com'
+    SECTIONS = ['1','2','3']
+    articles = []
+>>>>>>> 1910b9e4379b0e99cd8c8d78e12b55cd0cd07b3a
 
 # Now we have the web pages in a list of dictionaries
 
