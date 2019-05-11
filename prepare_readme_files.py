@@ -74,7 +74,7 @@ def remove_stopwords(article, extra_words = [], exclude_words = []):
     return article_without_stopwords
 
 
-def prep_repo_html(this_dict, extra_words = [], exclude_words = []):
+def prep_repo_html(this_repo, extra_words = [], exclude_words = []):
     '''
     takes in a dictionary representing an article and returns a dictionary that 
     looks like this:
@@ -86,7 +86,7 @@ def prep_repo_html(this_dict, extra_words = [], exclude_words = []):
         }    
     '''
     # put the content section into article and make a copy
-    article = this_dict['content']
+    article = this_repo['content']
     original = article
 
     '''
@@ -107,11 +107,17 @@ def prep_repo_html(this_dict, extra_words = [], exclude_words = []):
     all the words in exclude list'''
     article = remove_stopwords(article, extra_words, exclude_words)
 
-    keys = list(this_dict.keys())
+# should add this code to remove any repos that do not have languages listed, 
+# but don't have any such repos right now.
+    # removing all rows that has 'No language specified.'
+#     df = df[df.language != 'No language specified.']
+#     df = df.rename(index=str, columns={"clean": "text"})
+    
+    keys = list(this_repo.keys())
     
     new_dict = {
-         'title': this_dict['title'],
-         'language': this_dict['language'],
+         'title': this_repo['title'],
+         'language': this_repo['language'],
          'original': original,
          'clean': article
         }
