@@ -58,36 +58,32 @@ def lemmatize(article):
     return article_lemmatized
 
 
-def remove_stopwords(article, extra_words = None, exclude_words = None):
+def remove_stopwords(article, extra_words = [], exclude_words = []):
     '''remove all the stopwords, including all the words in extra_words and excluding
     all the words in exclude list'''
-
     # get basic stopword list
     stopword_list = stopwords.words('english')
 
     # add extra words    
-    if extra_words != None:
-        stopword_list = stopword_list + extra_words
+    stopword_list = stopword_list + extra_words
     # remove excluded words
-    if exclude_words != None:
-        stopword_list = [word for word in stopword_list if word not in exclude_words]
+    stopword_list = [word for word in stopword_list if word not in exclude_words]
     
     without_stopwords = [word for word in article.split(' ') if word not in stopword_list]
     article_without_stopwords = ' '.join(without_stopwords)
     return article_without_stopwords
 
 
-def prep_repo_html(this_dict, extra_words = None, exclude_words = None):
+def prep_repo_html(this_dict, extra_words = [], exclude_words = []):
     '''
     takes in a dictionary representing an article and returns a dictionary that 
     looks like this:
-            {
-             'title': 'the original title',
-             'original': original,
-             'clean': article_without_stopwords
-            }
-    Note that if the orignal dictionary has a title property, it will remain unchanged 
-    (same goes for the category property).
+        {
+         'title': this_dict['title'],
+         'language': this_dict['language'],
+         'original': original,
+         'clean': article
+        }    
     '''
     # put the content section into article and make a copy
     article = this_dict['content']
@@ -115,9 +111,8 @@ def prep_repo_html(this_dict, extra_words = None, exclude_words = None):
     
     new_dict = {
          'title': this_dict['title'],
-         'category': this_dict['category'] if 'category' in keys else 'repo_readme',       
          'language': this_dict['language'],
-#          'original': original,
+         'original': original,
          'clean': article
         }
     return new_dict

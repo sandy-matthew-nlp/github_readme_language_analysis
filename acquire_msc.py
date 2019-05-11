@@ -68,9 +68,9 @@ def get_all_readme_files_and_languages(use_cache=True):
                             'language': primary_language,
                             'content': readme
                          }
-                print(this_entry.keys())
-                print(this_entry['title'])
-                print(this_entry['language'])
+#                 print(this_entry.keys())
+#                 print(this_entry['title'])
+#                 print(this_entry['language'])
                 repositories.append(this_entry)
         json.dump(repositories, open('repositories.json', 'w'))
         return repositories
@@ -112,7 +112,7 @@ def get_alt(repo_list, use_cache = False):
                         'language': primary_language,
                         'content': readme
                          }
-            #print(this_entry.keys())
+#               print(this_entry.keys())
 #             print(this_entry['title'])
 #             print(this_entry['language'])
             repositories.append(this_entry)
