@@ -116,8 +116,8 @@ def prep_repo_html(this_repo, extra_words = [], exclude_words = []):
     lemmad = remove_stopwords(item, extra_words, exclude_words)
     stemmed = remove_stopwords(item, extra_words, exclude_words)
     # regroom numerals after removing stopwords in case of violated formatting as  a result
-    lemmad  = re.sub(r'[0-9]', '', lemmad)
-    stemmed = re.sub(r'[0-9]', '', stemmed)
+    lemmad  = re.sub(r'[0-9]\s', '', lemmad)
+    stemmed = re.sub(r'[0-9]\s', '', stemmed)
     keys = list(this_repo.keys())
     
     new_dict = {
