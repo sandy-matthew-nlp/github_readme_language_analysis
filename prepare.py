@@ -138,6 +138,10 @@ def prepare_repo_html_data(items, extra_words = None, exclude_words = None):
     transformed_items = []
     for item_index in range(len(items)):
         transformed_entry = prep_repo_html(items[item_index], extra_words, exclude_words)
+        
+#         # if the original readme was in written primarily using characters not in the Roman alphabet,
+#         # we do not want to keep that readme.
+#         if len(transformed_entry.lemmatized) > .5 * len(transformed_entry.original):
         transformed_items.append(transformed_entry.copy())
         df = pd.DataFrame.from_dict(transformed_items)
 
