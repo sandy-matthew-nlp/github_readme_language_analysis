@@ -20,7 +20,8 @@ def basic_clean(item):
     '''
     new_item = item.lower()
     new_item = re.sub(r'\s', ' ', new_item)
-    normalized = unicodedata.normalize('NFKD', new_item)                .encode('ascii', 'ignore')                .decode('utf-8')
+    normalized = unicodedata.normalize('NFKD', new_item)                .encode(
+        'ascii', 'ignore')                .decode('utf-8')
     without_special_chars = re.sub(r'[^a-z0-9\s]', ' ', normalized)
     word_list = without_special_chars.split()
     word_list = ' '.join(word_list)
@@ -59,23 +60,25 @@ def lemmatize(item):
     return item_lemmatized
 
 
-def remove_stopwords(item, extra_words = [], exclude_words = []):
+def remove_stopwords(item, extra_words=[], exclude_words=[]):
     '''remove all the stopwords, including all the words in extra_words and excluding
     all the words in exclude list'''
     # get basic stopword list
     stopword_list = stopwords.words('english')
 
-    # add extra words    
+    # add extra words
     stopword_list = stopword_list + extra_words
     # remove excluded words
-    stopword_list = [word for word in stopword_list if word not in exclude_words]
-    
-    without_stopwords = [word for word in item.split(' ') if word not in stopword_list]
+    stopword_list = [
+        word for word in stopword_list if word not in exclude_words]
+
+    without_stopwords = [word for word in item.split(
+        ' ') if word not in stopword_list]
     item_without_stopwords = ' '.join(without_stopwords)
     return item_without_stopwords
 
 
-def prep_repo_html(this_repo, extra_words = [], exclude_words = []):
+def prep_repo_html(this_repo, extra_words=[], exclude_words=[]):
     '''
     takes in a dictionary representing an item and returns a dictionary that 
     looks like this:
@@ -100,48 +103,48 @@ def prep_repo_html(this_repo, extra_words = [], exclude_words = []):
 
     # '''tokenize all the words in the string, item'''
     item = tokenize(item)
-    
+
     # ''''apply lemmatization to each word in the string, item'''
     lemmad = lemmatize(item)
 
     # apply stemming to each word in string, item
     stemmed = stem(item)
-    
+
     '''remove all the stopwords, including all the words in extra_words and excluding
     all the words in exclude list'''
     # remove numeral characters
-    lemmad  = re.sub(r'[0-9]', '', lemmad)
+    lemmad = re.sub(r'[0-9]', '', lemmad)
     stemmed = re.sub(r'[0-9]', '', stemmed)
-    #remove stopwords
+    # remove stopwords
     lemmad = remove_stopwords(item, extra_words, exclude_words)
     stemmed = remove_stopwords(item, extra_words, exclude_words)
     # regroom numerals after removing stopwords in case of violated formatting as  a result
-    lemmad  = re.sub(r'[0-9]\s', '', lemmad)
+    lemmad = re.sub(r'[0-9]\s', '', lemmad)
     stemmed = re.sub(r'[0-9]\s', '', stemmed)
-    keys = list(this_repo.keys())
+    lemmad = re.sub(r'[^A-Za-z\s]', '', lemmad)
+    stemmed = re.sub(r'[^A-Za-z\s]', '', stemmed)
     
+    keys = list(this_repo.keys())
+
     new_dict = {
-         'title': this_repo['title'],
-         'language': this_repo['language'],
-         'original': original,
-         'lemmatized': lemmad,
-         'stemmed': stemmed
-        }
+        'title': this_repo['title'],
+        'language': this_repo['language'],
+        'original': original,
+        'lemmatized': lemmad,
+        'stemmed': stemmed
+    }
     return new_dict
 
 
-def prepare_repo_html_data(items, extra_words = None, exclude_words = None):
-        
-    # takes in the list of items dictionaries, 
-    # applies the prep_item function to each one, 
+def prepare_repo_html_data(items, extra_words=None, exclude_words=None):
+
+    # takes in the list of items dictionaries,
+    # applies the prep_item function to each one,
     # and returns the transformed data.
     transformed_items = []
     for item_index in range(len(items)):
-        transformed_entry = prep_repo_html(items[item_index], extra_words, exclude_words)
-        
-#         # if the original readme was in written primarily using characters not in the Roman alphabet,
-#         # we do not want to keep that readme.
-#         if len(transformed_entry.lemmatized) > .5 * len(transformed_entry.original):
+        transformed_entry = prep_repo_html(
+            items[item_index], extra_words, exclude_words)
         transformed_items.append(transformed_entry.copy())
         df = pd.DataFrame.from_dict(transformed_items)
 
